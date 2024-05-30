@@ -1,0 +1,6 @@
+CREATE TABLE sample(
+	id INT NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	question VARCHAR NOT NULL,
+	PRIMARY KEY(id)
+);

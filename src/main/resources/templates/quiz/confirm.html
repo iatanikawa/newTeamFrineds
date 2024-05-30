@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>確認</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div th:object="${quizform}">
+        <p>選択した回答</p>
+        <p th:text="*{selectedAnswer}"></p>
+        <p>正解の回答</p>
+        <p th:text="*{correctAnswer}"></p>
+    </div>
+</body>
+</html>

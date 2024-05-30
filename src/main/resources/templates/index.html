@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>start</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css">
+</head>
+<p class="img_center">
+	<img src="title.png" alt="この人誰だろな？" width="500">
+	<br>
+	<img src="start.png" alt="top" width="300">
+</p>
+<body>
+	<form method="get" action="#" th:action="@{/quiz1}">
+		<input type="submit" value="スタート" onclick="playSound()">
+	</form>
+	
+	<audio id="clickSound" src="start.mp3"></audio>
+	
+	<!--更新してから再生できるか確認-->
+	<script>
+	    function playSound() {
+	        var audio = document.getElementById("clickSound");
+	        audio.play();
+	    }
+	</script>
+	
+</body>
+</html>
