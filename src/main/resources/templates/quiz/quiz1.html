@@ -2,45 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Quiz</title>
-	<meta charset="utf-8" />
-	<link rel="stylesheet" href="style.css">
+    <title>Quiz</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
 </head>
-<p class="img_center">
-	<a href="../index">
-		<img src="title.png" alt="この人誰だろな？" width="200">
-	</a>
-</p>
-
 <body>
-	<!--	questionという変数に取得したquestionリストの要素を格納-->
-	<div th:each="question : ${questions}">
-		<h1 th:text="${question.question}"></h1>
-
-		<form method="get" action="#" th:action="@{/checkAnswer}">
-			<!--<div th:each="choice : ${choiceMap}" >-->
-			<div th:each="entry : ${choiceMap}" th:object="${quizform}">
-				<div th:each="choice : ${entry.value}" th:if="${entry.key == question.id}">
-
-					<!--選択肢の表示 -->
-					<!--selectedanswerを受け取る-->
-					<input type="submit" name="selectedAnswer" th:value="${choice.name}"
-						th:name="'selectedAnswer_' + ${choice.id}"> <br>
-
-				</div>
-				<!--正解の選択肢（correctAnswer）を受け取る-->
-				<input type="hidden" name="correctAnswer" th:value="${question.name}">
-
-			</div>
-
-
-			正解表示(確認用)
-			<input type="submit" th:id="${question.id}" th:name="'question_' + ${question.id}"
-				th:value="${question.name}" th:action="@{/right}"> <br>
-		</form>
-
-
-	</div>
+    <p class="img_center">
+        <a href="../index">
+            <img src="title.png" alt="この人誰だろな？" width="200">
+        </a>
+    </p>
+    <div th:each="question : ${questions}">
+        <h1 th:text="${question.question}"></h1>
+        <form method="post" th:action="@{/checkAnswer}" th:object="${quizform}">
+            <div th:each="entry : ${choiceMap}">
+                <div th:each="choice : ${entry.value}" th:if="${entry.key == question.id}">
+                    <button type="submit" name="selectedAnswer" th:value="${choice.name}" th:text="${choice.name}" style="background-color: lightgreen; border: none; padding: 10px; width: 100%; margin-bottom: 10px; cursor: pointer; font-size: 1.2em;"></button>
+                </div>
+            </div>
+            <input type="hidden" th:field="*{correctAnswer}" th:value="${question.name}" />
+        </form>
+    </div>
 </body>
-
 </html>

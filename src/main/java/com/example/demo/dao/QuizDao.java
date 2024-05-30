@@ -10,27 +10,20 @@ import com.example.demo.entity.EntQuiz;
 @Repository
 public class QuizDao {
 	public List<EntQuiz> searchDb() {
-		//データベースからランダムで１つ取り出し、resultDB1に入れる（重複あり）
-		String sql = "SELECT * FROM sample ORDER BY RAND() ";
-		//画面に表示しやすい形のList(resultDB2)を用意
-		List<Map<String, Object>> resultDb1 = db.queryForList(sql);
-		//1件ずつピックアップ
-		List<EntQuiz> resultDb2 = new ArrayList<EntQuiz>();
-		for (Map<String, Object> result1 : resultDb1) {
-			//データ1件分を1つのまとまりとしたEntForm型の「entformdb」を生成
-			// 取得したentformdbをEntQuizオブジェクトにマッピング
-			EntQuiz entformdb = new EntQuiz();
-			//id、name、questionのデータをentformdbに移す
-			entformdb.setId((Integer) result1.get("id"));
-			entformdb.setName((String) result1.get("name"));
-			entformdb.setQuestion((String) result1.get("question"));
-			//移し替えたデータを持ったentformdbを、resultDB2に入れる
-			resultDb2.add(entformdb);
-		}
-		
-		//Controllerに渡す
-		return resultDb2;
+	    String sql = "SELECT * FROM sample ORDER BY RAND()";
+	    List<Map<String, Object>> resultDb1 = db.queryForList(sql);
+
+	    List<EntQuiz> resultDb2 = new ArrayList<>();
+	    for (Map<String, Object> result1 : resultDb1) {
+	        EntQuiz entformdb = new EntQuiz();
+	        entformdb.setId((Integer) result1.get("id"));
+	        entformdb.setName((String) result1.get("name"));
+	        entformdb.setQuestion((String) result1.get("question"));
+	        resultDb2.add(entformdb);
+	    }
+	    return resultDb2;
 	}
+
 	
 	private final JdbcTemplate db;
 	public QuizDao(JdbcTemplate db) {
